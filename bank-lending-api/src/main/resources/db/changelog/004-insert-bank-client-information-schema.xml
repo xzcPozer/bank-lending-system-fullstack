@@ -1,0 +1,78 @@
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                        https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.4.xsd">
+
+    <changeSet id="insert-test-data-client-information" author="Timurka228">
+        <insert tableName="client_information">
+            <column name="balance" valueNumeric="2500.50"/>
+            <column name="previous_loans" value="[
+                {&quot;сумма&quot;: 10000, &quot;срок&quot;: 24, &quot;процентная ставка&quot;: 12.0, &quot;ежемесячный платеж&quot;: 460.0, &quot;выплачен&quot;: true}
+            ]"/>
+            <column name="credit_score" valueNumeric="800"/>
+            <column name="user_id" valueNumeric="1"/>
+        </insert>
+
+        <insert tableName="client_information">
+            <column name="balance" valueNumeric="500.00"/>
+            <column name="previous_loans" value="[
+                {&quot;сумма&quot;: 2000, &quot;срок&quot;: 12, &quot;процентная ставка&quot;: 9.5, &quot;ежемесячный платеж&quot;: 180.0, &quot;выплачен&quot;: true},
+                {&quot;сумма&quot;: 4000, &quot;срок&quot;: 18, &quot;процентная ставка&quot;: 11.0, &quot;ежемесячный платеж&quot;: 250.0, &quot;выплачен&quot;: false},
+                {&quot;сумма&quot;: 1500, &quot;срок&quot;: 6, &quot;процентная ставка&quot;: 7.0, &quot;ежемесячный платеж&quot;: 260.0, &quot;выплачен&quot;: true}
+            ]"/>
+            <column name="credit_score" valueNumeric="680"/>
+            <column name="user_id" valueNumeric="2"/>
+        </insert>
+
+        <insert tableName="client_information">
+            <column name="balance" valueNumeric="7500.00"/>
+            <column name="previous_loans" value="[
+                {&quot;сумма&quot;: 8000, &quot;срок&quot;: 36, &quot;процентная ставка&quot;: 13.0, &quot;ежемесячный платеж&quot;: 250.0, &quot;выплачен&quot;: false}
+            ]"/>
+            <column name="credit_score" valueNumeric="720"/>
+            <column name="user_id" valueNumeric="3"/>
+        </insert>
+
+        <insert tableName="client_information">
+            <column name="balance" valueNumeric="70000"/>
+            <column name="credit_score" valueNumeric="170"/>
+            <column name="user_id" valueNumeric="6"/>
+        </insert>
+
+        <insert tableName="client_information">
+            <column name="balance" valueNumeric="13000"/>
+            <column name="credit_score" valueNumeric="150"/>
+            <column name="user_id" valueNumeric="7"/>
+        </insert>
+
+        <insert tableName="client_information">
+            <column name="balance" valueNumeric="23000"/>
+            <column name="credit_score" valueNumeric="150"/>
+            <column name="user_id" valueNumeric="8"/>
+        </insert>
+
+        <insert tableName="client_information">
+            <column name="balance" valueNumeric="2400"/>
+            <column name="credit_score" valueNumeric="150"/>
+            <column name="user_id" valueNumeric="9"/>
+        </insert>
+
+        <insert tableName="client_information">
+            <column name="balance" valueNumeric="5000"/>
+            <column name="credit_score" valueNumeric="90"/>
+            <column name="user_id" valueNumeric="10"/>
+        </insert>
+
+        <insert tableName="client_information">
+            <column name="credit_score" valueNumeric="140"/>
+            <column name="user_id" valueNumeric="11"/>
+        </insert>
+
+        <insert tableName="client_information">
+            <column name="credit_score" valueNumeric="160"/>
+            <column name="user_id" valueNumeric="12"/>
+        </insert>
+
+    </changeSet>
+</databaseChangeLog>

@@ -1,0 +1,15 @@
+databaseChangeLog:
+  - include: 
+      file: db/changelog/001-init-bank-schemes.yaml
+  - include:
+      file: db/changelog/002-insert-bank-role-credit-condition-schemes.sql
+  - include:
+      file: db/changelog/003-insert-bank-user-schema.sql
+  - include:
+      file: db/changelog/004-insert-bank-client-information-schema.xml
+  - include:
+      file: db/changelog/005-insert-user-roles-schema.xml
+  - include:
+      file: db/changelog/006-bank-insert-credit-request-schema.sql
+  - include:
+      file: db/changelog/007-insert-bank-credit-query-info-schema.sql

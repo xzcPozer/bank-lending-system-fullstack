@@ -1,0 +1,310 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1
+      author: Timurka228
+      changes:
+        - createTable:
+            tableName: _user
+            columns:
+              - column:
+                  name: id
+                  type: BIGINT
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: first_name
+                  type: VARCHAR(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: last_name
+                  type: VARCHAR(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: sur_name
+                  type: VARCHAR(255)
+              - column:
+                  name: date_of_birth
+                  type: DATE
+                  constraints:
+                    nullable: false
+              - column:
+                  name: passport_serial_number
+                  type: VARCHAR(255)
+                  constraints:
+                    nullable: false
+                    unique: true
+              - column:
+                  name: address_register
+                  type: VARCHAR(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: address_fact
+                  type: VARCHAR(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: phone_number
+                  type: VARCHAR(255)
+                  constraints:
+                    nullable: false
+                    unique: true
+              - column:
+                  name: email
+                  type: VARCHAR(255)
+                  constraints:
+                    nullable: false
+                    unique: true
+              - column:
+                  name: password
+                  type: VARCHAR(255)
+
+  - changeSet:
+      id: 2
+      author: Timurka228
+      changes:
+        - createTable:
+            tableName: role
+            columns:
+              - column:
+                  name: id
+                  type: BIGINT
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: name
+                  type: VARCHAR(255)
+                  constraints:
+                    nullable: false
+                    unique: true
+
+  - changeSet:
+      id: 3
+      author: Timurka228
+      changes:
+        - createTable:
+            tableName: user_roles
+            columns:
+              - column:
+                  name: user_id
+                  type: BIGINT
+                  constraints:
+                    nullable: false
+                    foreignKeyName: fk_user_roles_user
+                    referencedTableName: _user
+                    referencedColumnNames: id
+              - column:
+                  name: role_id
+                  type: BIGINT
+                  constraints:
+                    nullable: false
+                    foreignKeyName: fk_user_roles_role
+                    referencedTableName: role
+                    referencedColumnNames: id
+
+  - changeSet:
+      id: 6
+      author: Timurka228
+      changes:
+        - createTable:
+            tableName: credit_condition
+            columns:
+              - column:
+                  name: id
+                  type: BIGINT
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: min_amount
+                  type: INTEGER
+                  constraints:
+                    nullable: false
+              - column:
+                  name: max_amount
+                  type: INTEGER
+                  constraints:
+                    nullable: false
+              - column:
+                  name: interest_rate
+                  type: DOUBLE PRECISION # может понадобиться изменить
+                  constraints:
+                    nullable: false
+              - column:
+                  name: term_min
+                  type: INTEGER
+                  constraints:
+                    nullable: false
+              - column:
+                  name: term_max
+                  type: INTEGER
+                  constraints:
+                    nullable: false
+              - column:
+                  name: product_name
+                  type: VARCHAR(255)
+                  constraints:
+                    nullable: false
+
+  - changeSet:
+      id: 4
+      author: Timurka228
+      changes:
+        - createTable:
+            tableName: credit_request
+            columns:
+              - column:
+                  name: id
+                  type: BIGINT
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: loan_purpose
+                  type: VARCHAR(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: sum
+                  type: INTEGER
+                  constraints:
+                    nullable: false
+              - column:
+                  name: immovable_property
+                  type: BOOLEAN
+                  constraints:
+                    nullable: false
+              - column:
+                  name: movable_property
+                  type: BOOLEAN
+                  constraints:
+                    nullable: false
+              - column:
+                  name: type
+                  type: VARCHAR(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: solvency_ref_path
+                  type: VARCHAR(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: employment_ref_path
+                  type: VARCHAR(255)
+              - column:
+                  name: is_processed
+                  type: BOOLEAN
+                  constraints:
+                    nullable: false
+              - column:
+                  name: status
+                  type: VARCHAR(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: description_status
+                  type: TEXT
+              - column:
+                  name: current_loans
+                  type: JSONB
+              - column:
+                  name: created_date
+                  type: TIMESTAMP
+                  constraints:
+                    nullable: false
+              - column:
+                  name: last_modified_date
+                  type: TIMESTAMP
+              - column:
+                  name: user_id
+                  type: BIGINT
+                  constraints:
+                    nullable: false
+                    foreignKeyName: fk_credit_request_user
+                    referencedTableName: _user
+                    referencedColumnNames: id
+              - column:
+                  name: credit_condition_id
+                  type: BIGINT
+                  constraints:
+                    foreignKeyName: fk_credit_request_credit_condition
+                    referencedTableName: credit_condition
+                    referencedColumnNames: id
+              - column:
+                  name: lending_officer_id
+                  type: BIGINT
+                  constraints:
+                    foreignKeyName: fk_credit_request_lending_officer
+                    referencedTableName: _user
+                    referencedColumnNames: id
+
+  - changeSet:
+      id: 5
+      author: Timurka228
+      changes:
+        - createTable:
+            tableName: credit_query_info
+            columns:
+              - column:
+                  name: id
+                  type: BIGINT
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: financial_situation
+                  type: JSONB
+                  constraints:
+                    nullable: false
+              - column:
+                  name: credit_request_id
+                  type: BIGINT
+                  constraints:
+                    nullable: false
+                    unique: true
+                    foreignKeyName: fk_credit_query_info_credit_request
+                    referencedTableName: credit_request
+                    referencedColumnNames: id
+
+  - changeSet:
+      id: 7
+      author: Timurka228
+      changes:
+        - createTable:
+            tableName: client_information
+            columns:
+              - column:
+                  name: id
+                  type: BIGINT
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: balance
+                  type: DOUBLE PRECISION # может понадобиться изменить
+              - column:
+                  name: previous_loans
+                  type: JSONB
+              - column:
+                  name: credit_score
+                  type: INTEGER
+              - column:
+                  name: user_id
+                  type: BIGINT
+                  constraints:
+                    nullable: true
+                    unique: true
+                    foreignKeyName: fk_client_information_user
+                    referencedTableName: _user
+                    referencedColumnNames: id

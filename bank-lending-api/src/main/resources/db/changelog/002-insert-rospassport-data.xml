@@ -1,0 +1,190 @@
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                        https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.3.xsd">
+
+    <!-- Добавление тестовых данных -->
+    <changeSet id="insert-test-data-citizens" author="Timurka228">
+        <insert tableName="citizens">
+            <column name="first_name" value="Иван"/>
+            <column name="last_name" value="Иванов"/>
+            <column name="sur_name" value="Иванович"/>
+            <column name="date_of_birth" valueDate="1985-06-15"/>
+            <column name="passport_serial_number" value="4512-876543"/>
+            <column name="address_register" value="г. Москва, ул. Ленина, д. 15, кв. 8"/>
+            <column name="inn" value="123456789012"/>
+        </insert>
+        <insert tableName="citizens">
+            <column name="first_name" value="Петр"/>
+            <column name="last_name" value="Петров"/>
+            <column name="sur_name" value="Петрович"/>
+            <column name="date_of_birth" valueDate="1990-03-22"/>
+            <column name="passport_serial_number" value="4513-123456"/>
+            <column name="address_register" value="г. Санкт-Петербург, пр. Невский, д. 45, кв. 12"/>
+            <column name="inn" value="234567890123"/>
+        </insert>
+        <insert tableName="citizens">
+            <column name="first_name" value="Сидор"/>
+            <column name="last_name" value="Сидоров"/>
+            <column name="sur_name" value="Сидорович"/>
+            <column name="date_of_birth" valueDate="1978-11-05"/>
+            <column name="passport_serial_number" value="4514-654321"/>
+            <column name="address_register" value="г. Новосибирск, ул. Красная, д. 7, корп. 2, кв. 34"/>
+            <column name="inn" value="345678901234"/>
+        </insert>
+        <insert tableName="citizens">
+            <column name="first_name" value="Анна"/>
+            <column name="last_name" value="Кузнецова"/>
+            <column name="sur_name" value="Сергеевна"/>
+            <column name="date_of_birth" valueDate="1995-07-19"/>
+            <column name="passport_serial_number" value="4515-987654"/>
+            <column name="address_register" value="г. Екатеринбург, ул. Мира, д. 10, кв. 5"/>
+            <column name="inn" value="456789012345"/>
+        </insert>
+        <insert tableName="citizens">
+            <column name="first_name" value="Мария"/>
+            <column name="last_name" value="Васильева"/>
+            <column name="sur_name" value="Александровна"/>
+            <column name="date_of_birth" valueDate="1982-09-30"/>
+            <column name="passport_serial_number" value="4516-321654"/>
+            <column name="address_register" value="г. Казань, ул. Баумана, д. 22, корп. 1, кв. 18"/>
+            <column name="inn" value="567890123456"/>
+        </insert>
+        <insert tableName="citizens">
+            <column name="first_name" value="Дмитрий"/>
+            <column name="last_name" value="Смирнов"/>
+            <column name="sur_name" value="Владимирович"/>
+            <column name="date_of_birth" valueDate="1988-02-14"/>
+            <column name="passport_serial_number" value="4517-789456"/>
+            <column name="address_register" value="г. Нижний Новгород, ул. Большая Покровская, д. 30, кв. 9"/>
+            <column name="inn" value="678901234567"/>
+        </insert>
+        <insert tableName="citizens">
+            <column name="first_name" value="Елена"/>
+            <column name="last_name" value="Попова"/>
+            <column name="sur_name" value="Николаевна"/>
+            <column name="date_of_birth" valueDate="1992-12-01"/>
+            <column name="passport_serial_number" value="4518-654987"/>
+            <column name="address_register" value="г. Самара, ул. Фрунзе, д. 14, кв. 22"/>
+            <column name="inn" value="789012345678"/>
+        </insert>
+        <insert tableName="citizens">
+            <column name="first_name" value="Алексей"/>
+            <column name="last_name" value="Козлов"/>
+            <column name="sur_name" value="Михайлович"/>
+            <column name="date_of_birth" valueDate="1976-05-25"/>
+            <column name="passport_serial_number" value="4519-321456"/>
+            <column name="address_register" value="г. Омск, ул. Советская, д. 8, корп. 3, кв. 45"/>
+            <column name="inn" value="890123456789"/>
+        </insert>
+        <insert tableName="citizens">
+            <column name="first_name" value="Ольга"/>
+            <column name="last_name" value="Лебедева"/>
+            <column name="sur_name" value="Игоревна"/>
+            <column name="date_of_birth" valueDate="1980-08-10"/>
+            <column name="passport_serial_number" value="4520-987321"/>
+            <column name="address_register" value="г. Челябинск, ул. Труда, д. 25, кв. 11"/>
+            <column name="inn" value="901234567890"/>
+        </insert>
+        <insert tableName="citizens">
+            <column name="first_name" value="Сергей"/>
+            <column name="last_name" value="Морозов"/>
+            <column name="sur_name" value="Андреевич"/>
+            <column name="date_of_birth" valueDate="1987-04-18"/>
+            <column name="passport_serial_number" value="4521-654789"/>
+            <column name="address_register" value="г. Ростов-на-Дону, ул. Буденновская, д. 19, корп. 2, кв. 33"/>
+            <column name="inn" value="012345678901"/>
+        </insert>
+        <insert tableName="citizens">
+            <column name="first_name" value="Татьяна"/>
+            <column name="last_name" value="Николаева"/>
+            <column name="sur_name" value="Викторовна"/>
+            <column name="date_of_birth" valueDate="1993-06-22"/>
+            <column name="passport_serial_number" value="4522-321987"/>
+            <column name="address_register" value="г. Уфа, ул. Цюрупы, д. 12, кв. 7"/>
+            <column name="inn" value="123456789012"/>
+        </insert>
+        <insert tableName="citizens">
+            <column name="first_name" value="Андрей"/>
+            <column name="last_name" value="Федоров"/>
+            <column name="sur_name" value="Сергеевич"/>
+            <column name="date_of_birth" valueDate="1979-11-11"/>
+            <column name="passport_serial_number" value="4523-789654"/>
+            <column name="address_register" value="г. Красноярск, ул. Карла Маркса, д. 33, корп. 1, кв. 14"/>
+            <column name="inn" value="234567890123"/>
+        </insert>
+        <insert tableName="citizens">
+            <column name="first_name" value="Ирина"/>
+            <column name="last_name" value="Захарова"/>
+            <column name="sur_name" value="Дмитриевна"/>
+            <column name="date_of_birth" valueDate="1984-03-14"/>
+            <column name="passport_serial_number" value="4524-654123"/>
+            <column name="address_register" value="г. Пермь, ул. Комсомольский проспект, д. 5, кв. 27"/>
+            <column name="inn" value="345678901234"/>
+        </insert>
+        <insert tableName="citizens">
+            <column name="first_name" value="Владимир"/>
+            <column name="last_name" value="Белов"/>
+            <column name="sur_name" value="Алексеевич"/>
+            <column name="date_of_birth" valueDate="1989-09-07"/>
+            <column name="passport_serial_number" value="4525-321789"/>
+            <column name="address_register" value="г. Волгоград, ул. Гагарина, д. 40, корп. 4, кв. 19"/>
+            <column name="inn" value="456789012345"/>
+        </insert>
+        <insert tableName="citizens">
+            <column name="first_name" value="Наталья"/>
+            <column name="last_name" value="Романова"/>
+            <column name="sur_name" value="Владимировна"/>
+            <column name="date_of_birth" valueDate="1991-07-28"/>
+            <column name="passport_serial_number" value="4526-987123"/>
+            <column name="address_register" value="г. Краснодар, ул. Тургенева, д. 17, кв. 3"/>
+            <column name="inn" value="567890123456"/>
+        </insert>
+        <insert tableName="citizens">
+            <column name="first_name" value="Максим"/>
+            <column name="last_name" value="Ковалев"/>
+            <column name="sur_name" value="Иванович"/>
+            <column name="date_of_birth" valueDate="1983-01-19"/>
+            <column name="passport_serial_number" value="4527-654321"/>
+            <column name="address_register" value="г. Тольятти, ул. Юбилейная, д. 28, корп. 3, кв. 41"/>
+            <column name="inn" value="678901234567"/>
+        </insert>
+        <insert tableName="citizens">
+            <column name="first_name" value="Екатерина"/>
+            <column name="last_name" value="Григорьева"/>
+            <column name="sur_name" value="Павловна"/>
+            <column name="date_of_birth" valueDate="1994-10-12"/>
+            <column name="passport_serial_number" value="4528-321654"/>
+            <column name="address_register" value="г. Ижевск, ул. Пушкинская, д. 6, кв. 15"/>
+            <column name="inn" value="789012345678"/>
+        </insert>
+        <insert tableName="citizens">
+            <column name="first_name" value="Александр"/>
+            <column name="last_name" value="Соколов"/>
+            <column name="sur_name" value="Николаевич"/>
+            <column name="date_of_birth" valueDate="1977-02-25"/>
+            <column name="passport_serial_number" value="4529-987654"/>
+            <column name="address_register" value="г. Ярославль, ул. Свободы, д. 11, корп. 2, кв. 29"/>
+            <column name="inn" value="890123456789"/>
+        </insert>
+        <insert tableName="citizens">
+            <column name="first_name" value="Юлия"/>
+            <column name="last_name" value="Макарова"/>
+            <column name="sur_name" value="Андреевна"/>
+            <column name="date_of_birth" valueDate="1986-05-16"/>
+            <column name="passport_serial_number" value="4530-654321"/>
+            <column name="address_register" value="г. Хабаровск, ул. Школьная, д. 35, кв. 6"/>
+            <column name="inn" value="901234567890"/>
+        </insert>
+        <insert tableName="citizens">
+            <column name="first_name" value="Денис"/>
+            <column name="last_name" value="Лебедев"/>
+            <column name="sur_name" value="Валерьевич"/>
+            <column name="date_of_birth" valueDate="1996-08-03"/>
+            <column name="passport_serial_number" value="4531-321987"/>
+            <column name="address_register" value="г. Владивосток, ул. Адмирала Фокина, д. 20, корп. 1, кв. 13"/>
+            <column name="inn" value="012345678901"/>
+        </insert>
+    </changeSet>
+</databaseChangeLog>
