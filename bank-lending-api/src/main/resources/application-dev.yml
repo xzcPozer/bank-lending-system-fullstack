@@ -17,9 +17,6 @@ spring:
       ddl-auto: validate
       database-platform: org.hibernate.dialect.PostgreSQLDialect
 
-#  liquibase:
-#    enabled: true
-
   mail:
     port: 1025
     host: localhost

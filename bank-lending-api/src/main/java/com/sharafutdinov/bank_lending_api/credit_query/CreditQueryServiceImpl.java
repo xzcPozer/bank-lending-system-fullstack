@@ -98,7 +98,7 @@ public class CreditQueryServiceImpl implements CreditQueryService {
     }
 
     @Override
-    public Long sendRefuseData(Long userId, String description) throws MessagingException {
+    public Long sendForRevisionData(Long userId, String description) throws MessagingException {
         CreditRequest request = Optional.ofNullable(creditRequestRepository.findByUserIdAndIsProcessedIs(userId, false))
                 .orElseThrow(() -> new EntityNotFoundException("Такого запроса не было найдено в бд"));
         emailService.sendForRevisionMail(SendForRevisionMailRequest.builder()
@@ -110,6 +110,23 @@ public class CreditQueryServiceImpl implements CreditQueryService {
                 .build());
         request.setProcessed(true);
         request.setStatus(ProcessingStatus.SENT_FOR_REVISION);
+        request.setDescriptionStatus(description);
+        return creditRequestRepository.save(request).getId();
+    }
+
+    @Override
+    public Long sendRefuseData(Long userId, String description) throws MessagingException {
+        CreditRequest request = Optional.ofNullable(creditRequestRepository.findByUserIdAndIsProcessedIs(userId, false))
+                .orElseThrow(() -> new EntityNotFoundException("Такого запроса не было найдено в бд"));
+        emailService.sendForRevisionMail(SendForRevisionMailRequest.builder()
+                .to(request.getUser().getEmail())
+                .from("CoolerBank228@mail.com")
+                .description(description)
+                .firstName(request.getUser().getFirstName())
+                .surName(request.getUser().getSurName())
+                .build());
+        request.setProcessed(true);
+        request.setStatus(ProcessingStatus.REFUSED);
         request.setDescriptionStatus(description);
         return creditRequestRepository.save(request).getId();
     }
@@ -206,6 +223,23 @@ public class CreditQueryServiceImpl implements CreditQueryService {
         return new File(exporter.getReportFilepath(user.getId()) + "/credit_query_report.pdf");
     }
 
+    @Override
+    public PageResponse<CreditQueryClientResponse> getAllClientCreditQueryInfoByLastname(int page, int size, String lastname) {
+        Pageable pageable = PageRequest.of(page, size);
+        Page<CreditQueryInfo> creditQueriesInfo = creditQueriesRepository.findAllByCreditRequestUserLastName(pageable, lastname);
+        List<CreditQueryClientResponse> creditQueryList = creditQueriesInfo.stream()
+                .map(mapper::toResponse)
+                .toList();
+        return new PageResponse<>(
+                creditQueryList,
+                creditQueriesInfo.getNumber(),
+                creditQueriesInfo.getSize(),
+                creditQueriesInfo.getTotalElements(),
+                creditQueriesInfo.getTotalPages(),
+                creditQueriesInfo.isFirst(),
+                creditQueriesInfo.isLast()
+        );
+    }
 
     @Override
     public File getSolvencyUploadPdfInfoByUserId(Long userId) {
@@ -315,7 +349,7 @@ public class CreditQueryServiceImpl implements CreditQueryService {
                 })
                 .orElseThrow(() -> new EntityNotFoundException("Информация об этом запросе не была найдена"));
 
-        creator.createFinancialSituationFor2ndflPdf(query, creditRequest, authUser, true);
+        creator.createFinancialSituationForIpPdf(query, creditRequest, authUser, true);
 
         return query.getId();
     }
@@ -337,7 +371,7 @@ public class CreditQueryServiceImpl implements CreditQueryService {
                 })
                 .orElseThrow(() -> new EntityNotFoundException("Информация об этом запросе не была найдена"));
 
-        creator.createFinancialSituationFor2ndflPdf(query, creditRequest, authUser, true);
+        creator.createFinancialSituationForIpPdf(query, creditRequest, authUser, true);
 
         return query.getId();
     }

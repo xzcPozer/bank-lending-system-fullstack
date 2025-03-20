@@ -39,4 +39,22 @@ public class UserController {
     ){
         return ResponseEntity.ok(service.getAllBankClient(page, size));
     }
+
+    @GetMapping("/all-client/by/sort")
+    @PreAuthorize("hasRole('ROLE_CREDIT_OFFICER')")
+    public ResponseEntity<PageResponse<UserResponse>> getAllClientBySort(
+            @RequestParam(name = "page", defaultValue = "0", required = false) int page,
+            @RequestParam(name = "size", defaultValue = "10", required = false) int size,
+            @RequestParam boolean isAsc
+    ){
+        return ResponseEntity.ok(service.getAllBankClientBySort(page, size, isAsc));
+    }
+
+    @GetMapping("/get/by/serial-number")
+    @PreAuthorize("hasRole('ROLE_CREDIT_OFFICER')")
+    public ResponseEntity<UserResponse> getUserBySerialNumber(
+            @RequestParam String serialNum
+    ) {
+        return ResponseEntity.ok(service.getUserBySerialNumber(serialNum));
+    }
 }

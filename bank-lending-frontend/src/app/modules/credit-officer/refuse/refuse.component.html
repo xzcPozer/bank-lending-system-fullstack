@@ -1,0 +1,18 @@
+<div class="form-container">
+  <h2>Отказ в выдаче кредита</h2>
+  <hr>
+  <div class="alert alert-danger" role="alert" *ngIf="errorMsg.length">
+    <p *ngFor="let msg of errorMsg">{{msg}}</p>
+  </div>
+  <form>
+    <div class="form-group">
+      <label>Причина отказа</label>
+      <input type="text" name="email" [(ngModel)]="description" class="form-control">
+    </div>
+
+    <div class="form-actions">
+      <button type="submit"  (click)="send()">Отправить</button>
+      <button type="submit" (click)="cancel()">Отмена</button>
+    </div>
+  </form>
+</div>

@@ -1,0 +1,190 @@
+<app-menu></app-menu>
+<div class="form-container">
+  <h2>Кредитная заявка</h2>
+  <form (ngSubmit)="onSubmit()">
+    <!-- Основные данные -->
+    <div
+      *ngIf="errorMsg.length"
+      class="alert alert-danger"
+      role="alert"
+    >
+      <p *ngFor="let msg of errorMsg">{{msg}}</p>
+    </div>
+
+    <div *ngIf="successMessage" class="alert alert-success">
+      {{ successMessage }}
+    </div>
+
+    <div class="form-group">
+      <label>Фамилия</label>
+      <input type="text" [(ngModel)]="userRequest.lastname"
+             class="form-control" name="addressRegister">
+    </div>
+
+    <div class="form-group">
+      <label>Имя</label>
+      <input type="text" [(ngModel)]="userRequest.firstName"
+             class="form-control" name="addressRegister">
+    </div>
+
+    <div class="form-group">
+      <label>Отчество</label>
+      <input type="text" [(ngModel)]="userRequest.surName"
+             class="form-control" name="addressRegister">
+    </div>
+
+
+    <div class="form-group">
+      <label>Дата рождения</label>
+      <input type="text" [(ngModel)]="userRequest.dateOfBirth"
+             class="form-control" name="dateOfBirth"
+             [mask]="'00.00.0000'" [showMaskTyped]="true"
+             [dropSpecialCharacters]="false"
+             placeholder="дд.мм.гггг">
+    </div>
+
+    <div class="form-group">
+      <label>Серия и номер паспорта</label>
+      <input type="text" [(ngModel)]="userRequest.passportSerialNumber"
+             class="form-control" name="passportSerialNumber"
+             [mask]="'0000-000000'" [showMaskTyped]="true" [dropSpecialCharacters]="false">
+    </div>
+
+    <div class="form-group">
+      <label>Адрес регистрации</label>
+      <input type="text" [(ngModel)]="userRequest.addressRegister"
+             class="form-control" name="addressRegister">
+    </div>
+
+    <div class="form-group">
+      <label>Адрес фактического проживания</label>
+      <input type="text" [(ngModel)]="userRequest.addressFact"
+             class="form-control" name="addressFact">
+    </div>
+
+    <div class="form-group">
+      <label>Мобильный телефон</label>
+      <input type="text" [(ngModel)]="userRequest.phoneNumber"
+             class="form-control" name="phone"
+             [mask]="'0000000000'" [prefix]="'+7'" [showMaskTyped]="true" [dropSpecialCharacters]="false">
+    </div>
+
+    <div class="form-group">
+      <label>Почта</label>
+      <input type="email" [(ngModel)]="userRequest.email"
+             class="form-control" name="email">
+    </div>
+
+    <div class="form-group">
+      <label>Цель кредита</label>
+      <input type="text" [(ngModel)]="creditRequest.loanPurpose"
+             class="form-control" name="loanPurpose">
+    </div>
+
+    <div class="form-group">
+      <label>Сумма кредита</label>
+      <input type="number" [(ngModel)]="creditRequest.sum"
+             class="form-control" name="sum">
+    </div>
+
+    <!-- Имущество и текущие кредиты -->
+    <div class="container">
+      <div class="checkbox-group">
+        <label>
+          <input type="checkbox" [(ngModel)]="creditRequest.immovableProperty"
+                 name="immovableProperty">
+          Имеется недвижимое имущество
+        </label>
+      </div>
+
+      <div class="checkbox-group">
+        <label>
+          <input type="checkbox" [(ngModel)]="creditRequest.movableProperty"
+                 name="movableProperty">
+          Имеется движимое имущество
+        </label>
+      </div>
+
+      <div class="checkbox-group">
+        <label>
+          <input type="checkbox" [(ngModel)]="hasOtherCredit"
+                 name="hasOtherCredit">
+          Имеется другой кредит
+        </label>
+      </div>
+
+      <div *ngIf="hasOtherCredit">
+        <div class="form-group">
+          <label>Срок кредита</label>
+          <input type="number" [(ngModel)]="creditTerm"
+                 class="form-control" name="creditTerm">
+        </div>
+        <div class="form-group">
+          <label>Ежемесячная оплата</label>
+          <input type="number" [(ngModel)]="monthlyPayment"
+                 class="form-control" name="monthlyPayment">
+        </div>
+      </div>
+    </div>
+
+    <!-- Тип занятости -->
+    <div class="container">
+      <h3>Тип занятости</h3>
+      <div class="radio-group">
+        <label>
+          <input type="radio" [(ngModel)]="creditRequest.type"
+                 name="employmentType" value="HIRED_WORKERS">
+          Работающий по найму
+        </label>
+      </div>
+      <div class="radio-group">
+        <label>
+          <input type="radio" [(ngModel)]="creditRequest.type"
+                 name="employmentType" value="INDIVIDUAL_ENTREPRENEUR">
+          ИП
+        </label>
+      </div>
+      <!--      <div class="radio-group">-->
+      <!--        <label>-->
+      <!--          <input type="radio" formControlName="type" value="SELF_EMPLOYED">-->
+      <!--          Самозанятый-->
+      <!--        </label>-->
+      <!--      </div>-->
+      <!--      <div class="radio-group">-->
+      <!--        <label>-->
+      <!--          <input type="radio" formControlName="type" value="PENSIONER">-->
+      <!--          Пенсионер-->
+      <!--        </label>-->
+      <!--      </div>-->
+      <div class="form-group">
+        <label>Документ подтверждения (PDF)</label>
+        <input type="file" (change)="onSolvencySelected($event)" accept=".pdf">
+      </div>
+    </div>
+
+    <!-- Трудовая занятость -->
+    <div class="container">
+      <h3>Подтверждение трудовой занятости</h3>
+      <div class="radio-group">
+        <label>
+          <input type="radio" [(ngModel)]="incomeConfirmation"
+                 name="incomeConfirmation" [value]="true">
+          Выписка о доходах клиента
+        </label>
+      </div>
+      <div class="radio-group">
+        <label>
+          <input type="radio" [(ngModel)]="incomeConfirmation"
+                 name="incomeConfirmation" [value]="false">
+          Нет
+        </label>
+      </div>
+      <div class="form-group" *ngIf="incomeConfirmation">
+        <label>Выписка о доходах (PDF)</label>
+        <input type="file" (change)="onEmploymentSelected($event)" accept=".pdf">
+      </div>
+    </div>
+
+    <button type="submit">Отправить</button>
+  </form>
+</div>

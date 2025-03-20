@@ -30,37 +30,37 @@ public class CreditRequestController {
     private final CreditRequestService service;
 
     @PostMapping("/add/by/hired-worker")
-    @PreAuthorize("hasRole('ROLE_CLIENT')")
     public ResponseEntity<Long> addCreditRequest(
             @RequestPart String requestStr,
             @RequestPart MultipartFile solvency,
-            @RequestPart MultipartFile employment,
-            Authentication connectedUser
+            @RequestPart MultipartFile employment
     ) throws ExportException, JsonProcessingException, MethodArgumentNotValidException, NoSuchMethodException {
         ObjectMapper objectMapper = new ObjectMapper();
         CreditRequestDto request = objectMapper.readValue(requestStr, CreditRequestDto.class);
         creditRequestDtoValidation(request);
-
-        request.setUserId(((BankUserDetails) connectedUser.getPrincipal()).getId());
 
         return ResponseEntity.ok(service.addCreditRequest(request, solvency, employment));
     }
 
     @PostMapping("/add")
-    @PreAuthorize("hasRole('ROLE_CLIENT')")
     public ResponseEntity<Long> addCreditRequest(
             @RequestPart String requestStr,
-            @RequestPart MultipartFile solvency,
-            Authentication connectedUser
+            @RequestPart MultipartFile solvency
     ) throws ExportException, JsonProcessingException, MethodArgumentNotValidException, NoSuchMethodException {
         ObjectMapper objectMapper = new ObjectMapper();
         CreditRequestDto request = objectMapper.readValue(requestStr, CreditRequestDto.class);
         creditRequestDtoValidation(request);
 
-        request.setUserId(((BankUserDetails) connectedUser.getPrincipal()).getId());
-
         return ResponseEntity.ok(service.addCreditRequest(request, solvency));
 
+    }
+
+    @GetMapping("/request/by/{creditRequestId}")
+    @PreAuthorize("hasRole('ROLE_CLIENT') or hasRole('ROLE_CREDIT_OFFICER')")
+    public ResponseEntity<CreditRequestResponse> getCreditRequestById(
+            @PathVariable Long creditRequestId
+    ){
+        return ResponseEntity.ok(service.getCreditRequestById(creditRequestId));
     }
 
     @GetMapping("/all-requests/with/lending-officer")
@@ -74,7 +74,7 @@ public class CreditRequestController {
 
     @GetMapping("/all-requests")
     @PreAuthorize("hasRole('ROLE_CREDIT_OFFICER')")
-    public ResponseEntity<PageResponse<CreditRequestResponse>> getAll(
+    public ResponseEntity<PageResponse<CreditRequestResponse>> getAllF(
             @RequestParam(name = "page", defaultValue = "0", required = false) int page,
             @RequestParam(name = "size", defaultValue = "10", required = false) int size
     ) {
@@ -91,10 +91,9 @@ public class CreditRequestController {
         return ResponseEntity.ok(service.getAllCreditRequest(page, size, isProcessed));
     }
 
-
     @GetMapping("/my-requests")
     @PreAuthorize("hasRole('ROLE_CLIENT')")
-    public ResponseEntity<PageResponse<CreditRequestResponse>> getAll(
+    public ResponseEntity<PageResponse<CreditRequestClientResponse>> getAll(
             @RequestParam(name = "page", defaultValue = "0", required = false) int page,
             @RequestParam(name = "size", defaultValue = "10", required = false) int size,
             Authentication connectedUser

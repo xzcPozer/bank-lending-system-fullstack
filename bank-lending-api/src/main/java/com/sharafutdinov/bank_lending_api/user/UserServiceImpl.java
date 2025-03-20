@@ -82,6 +82,9 @@ public class UserServiceImpl implements UserService {
                     .orElseThrow(() -> new EntityNotFoundException("Ошибка: некорректные данные, пожалуйста, проверьте заполненные данные"));
 
             return userFromRospassport.getId();
+        } else {
+            if(!validationPassportData(request, dbUser))
+                throw new EntityNotFoundException("Ошибка: некорректные данные, пожалуйста, проверьте заполненные данные");
         }
 
 
@@ -111,6 +114,36 @@ public class UserServiceImpl implements UserService {
                 users.isFirst(),
                 users.isLast()
         );
+    }
+
+    @Override
+    public PageResponse<UserResponse> getAllBankClientBySort(int page, int size, boolean isAsc) {
+        Pageable pageable;
+        if(isAsc)
+            pageable = PageRequest.of(page, size, Sort.by("lastName").ascending());
+        else
+            pageable = PageRequest.of(page, size, Sort.by("lastName").descending());
+
+        Page<User> users = repository.findAll(pageable);
+        List<UserResponse> userResponseList = users.stream()
+                .map(mapper::toResponse)
+                .toList();
+        return new PageResponse<>(
+                userResponseList,
+                users.getNumber(),
+                users.getSize(),
+                users.getTotalElements(),
+                users.getTotalPages(),
+                users.isFirst(),
+                users.isLast()
+        );
+    }
+
+    @Override
+    public UserResponse getUserBySerialNumber(String serialNum) {
+        return Optional.ofNullable(repository.findByPassportSerialNumber(serialNum))
+                .map(mapper::toResponse)
+                .orElseThrow(()-> new ResourceNotFoundException("Клиента с таким серийным номером не было найдено"));
     }
 
     private Role addRoleByName(String name){

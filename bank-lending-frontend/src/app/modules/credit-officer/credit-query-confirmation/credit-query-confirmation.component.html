@@ -1,0 +1,68 @@
+<div
+  *ngIf="errorMsg.length"
+  class="alert alert-danger"
+  role="alert"
+>
+  <p *ngFor="let msg of errorMsg">{{msg}}</p>
+</div>
+
+<div *ngIf="successMessage" class="alert alert-success">
+  {{ successMessage }}
+</div>
+<div class="page-container">
+  <!-- PDF Documents Section -->
+  <div class="documents-section">
+    <div class="pdf-container">
+      <iframe [src]="creditQueryPdfUrl" class="pdf-frame" title="credit query document"></iframe>
+    </div>
+  </div>
+
+  <div class="forms-section">
+    <!-- Tax Agent Information -->
+    <div class="container" *ngIf="isPossibleToIssue">
+      <h3>Информация о кредитном условии</h3>
+
+      <div class="form-group">
+        <label>Название кредита</label>
+        <select class="form-control" [(ngModel)]="creditConditionName">
+          <option *ngFor="let option of conditionNames" [value]="option">
+            {{ option }}
+          </option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label>Сумма кредита</label>
+        <input type="text" class="form-control" [(ngModel)]="creditConditionReq.amount">
+      </div>
+
+      <div class="form-group">
+        <label>Срок</label>
+        <input type="text" class="form-control" [(ngModel)]="creditConditionReq.term">
+      </div>
+
+      <div class="form-group">
+        <label>Процентная ставка</label>
+        <input type="text" class="form-control" [(ngModel)]="creditConditionReq.interestRate">
+      </div>
+
+      <div class="form-group">
+        <label>Ежемесячная оплата</label>
+        <input type="text" class="form-control" [(ngModel)]="creditConditionReq.monthlyPayment">
+      </div>
+
+      <button class="edit-button" (click)="changeCreditCondition()">Изменить</button>
+    </div>
+
+    <!-- Action Buttons -->
+    <div class="action-buttons">
+      <button class="action-button reject" (click)="reject()" *ngIf="isPossibleToIssue"
+      >Отказать
+      </button>
+      <button class="action-button confirm" (click)="confirm()" *ngIf="isPossibleToIssue"
+      >Подтвердить
+      </button>
+      <button class="edit-button" (click)="completeConfirmation()">Завершить проверку</button>
+    </div>
+  </div>
+</div>

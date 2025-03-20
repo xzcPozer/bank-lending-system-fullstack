@@ -21,6 +21,7 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -135,6 +136,14 @@ public class CreditConditionServiceImpl implements CreditConditionService {
                 request.amount(),
                 request.term())
                 * 100.0) / 100.0; // округление до 2ух знаков;
+    }
+
+    @Override
+    public List<String> getAllConditionNames() {
+        return repository.findAll()
+                .stream()
+                .map(CreditCondition::getProductName)
+                .collect(Collectors.toList());
     }
 
     private void saveRefusedData(CreditRequest request){

@@ -1,0 +1,35 @@
+<div
+  *ngIf="errorMsg.length"
+  class="alert alert-danger"
+  role="alert"
+>
+  <p *ngFor="let msg of errorMsg">{{msg}}</p>
+</div>
+
+<div *ngIf="successMessage" class="alert alert-success">
+  {{ successMessage }}
+</div>
+<div class="page-container">
+  <!-- PDF Documents Section -->
+  <div class="documents-section">
+    <div class="pdf-container" *ngIf="creditRequest.type==='HIRED_WORKERS'">
+      <iframe [src]="uploadPdfUrl" class="pdf-frame" title="Original Document"></iframe>
+    </div>
+    <div class="pdf-container" >
+      <iframe [src]="employmentPdfUrl" class="pdf-frame" title="Second Document"></iframe>
+    </div>
+  </div>
+
+  <!-- Action Buttons -->
+  <div class="action-buttons">
+    <button class="action-button reject" (click)="completeConfirmation()" *ngIf="!isPossibleToContinue">Завершить
+      проверку
+    </button>
+    <button class="action-button reject" (click)="reject()" *ngIf="isPossibleToContinue">Отказать</button>
+    <button class="action-button reject" (click)="sendForRevision()" *ngIf="!isPossibleToContinue">Отправить на
+      доработку
+    </button>
+    <button class="action-button confirm" (click)="confirm()" *ngIf="isPossibleToContinue">Подтвердить</button>
+    <button class="edit-button" (click)="nextConfirmation()" *ngIf="isPossibleToContinue">Далее</button>
+  </div>
+</div>

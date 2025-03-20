@@ -4,10 +4,12 @@ import com.lowagie.text.pdf.PdfException;
 import com.sharafutdinov.bank_lending_api.exception.CreditException;
 import com.sharafutdinov.bank_lending_api.exception.DataEqualsException;
 import com.sharafutdinov.bank_lending_api.exception.ResourceNotFoundException;
+import io.swagger.v3.oas.annotations.Hidden;
 import jakarta.mail.MessagingException;
 import jakarta.persistence.EntityExistsException;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authorization.AuthorizationDeniedException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -20,6 +22,7 @@ import java.util.Set;
 
 import static org.springframework.http.HttpStatus.*;
 
+@Hidden
 @RestControllerAdvice
 public class GlobalExceptionHandler {
 
@@ -63,6 +66,18 @@ public class GlobalExceptionHandler {
                 .body(
                         ExceptionResponse.builder()
                                 .error(exp.getMessage())
+                                .build()
+                );
+    }
+
+
+    @ExceptionHandler(BadCredentialsException.class)
+    public ResponseEntity<ExceptionResponse> handleMethodArgumentNotValidException(BadCredentialsException exp) {
+        return ResponseEntity
+                .status(CONFLICT)
+                .body(
+                        ExceptionResponse.builder()
+                                .error("Неверный логин или старый пароль")
                                 .build()
                 );
     }

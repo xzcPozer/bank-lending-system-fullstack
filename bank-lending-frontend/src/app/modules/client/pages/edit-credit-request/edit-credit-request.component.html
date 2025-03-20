@@ -1,0 +1,27 @@
+<div
+  *ngIf="errorMsg.length"
+  class="alert alert-danger"
+  role="alert"
+>
+  <p *ngFor="let msg of errorMsg">{{msg}}</p>
+</div>
+<div class="page-container">
+  <!-- Documents Upload Section -->
+  <div class="upload-section">
+    <div class="container">
+      <h3>Загрузка документов</h3>
+      <div class="form-group">
+        <label>Документ подтверждения (PDF)</label>
+        <input type="file" class="form-control" (change)="onSolvencySelected($event)" accept=".pdf">
+      </div>
+      <div class="form-group" *ngIf="is2ndfl">
+        <label>Выписка о доходах (PDF)</label>
+        <input type="file" class="form-control" (change)="onEmploymentSelected($event)" accept=".pdf">
+      </div>
+      <div class="button-group">
+        <button class="edit-button" (click)="send()">Отправить</button>
+        <button class="edit-button cancel" (click)="cancel()">Отмена</button>
+      </div>
+    </div>
+  </div>
+</div>

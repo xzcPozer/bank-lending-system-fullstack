@@ -29,6 +29,7 @@ public class UserMapper {
                 .addressRegister(user.getAddressRegister())
                 .addressFact(user.getAddressFact())
                 .phoneNumber(user.getPhoneNumber())
+                .email(user.getEmail())
                 .build();
     }
 }

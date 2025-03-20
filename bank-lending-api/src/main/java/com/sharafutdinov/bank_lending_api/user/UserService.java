@@ -9,4 +9,8 @@ public interface UserService {
     UserResponse getUserById(Long userId);
 
     PageResponse<UserResponse> getAllBankClient(int page, int size);
+
+    PageResponse<UserResponse> getAllBankClientBySort(int page, int size, boolean isAsc);
+
+    UserResponse getUserBySerialNumber(String serialNum);
 }

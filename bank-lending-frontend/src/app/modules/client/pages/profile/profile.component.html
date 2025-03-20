@@ -1,0 +1,53 @@
+<app-menu></app-menu>
+<div
+  *ngIf="msg"
+  class="alert "
+  [class.alert-danger]="level==='error'"
+  [class.alert-success]="level==='success'"
+  role="alert"
+>
+  <p>{{msg}}</p>
+</div>
+<div class="profile-container">
+  <div class="profile-actions">
+    <button class="action-button change-password" (click)="onPasswordEdit()">Изменить пароль</button>
+    <button class="action-button logout" (click)="logout()">Выйти</button>
+  </div>
+
+  <div class="table-container">
+    <table class="data-table">
+      <thead>
+      <tr>
+        <th>Цель</th>
+        <th>Сумма</th>
+        <th>Статус</th>
+        <th>Пояснение</th>
+        <th>Действие</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let row of response.content">
+        <td>{{ row.loanPurpose}}</td>
+        <td>{{ row.sum }} ₽</td>
+        <td>{{ row.status }}</td>
+        <td>{{ row.descriptionStatus }}</td>
+        <td>
+          <button
+            *ngIf="row.status === 'SENT_FOR_REVISION'"
+            class="edit-button"
+            (click)="onEdit(row.id)">
+            Изменить
+          </button>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<app-pagination
+  [currentPage]="page"
+  [totalPages]="pages"
+  (_page)="displayPerformedWorks($event)"
+>
+</app-pagination>

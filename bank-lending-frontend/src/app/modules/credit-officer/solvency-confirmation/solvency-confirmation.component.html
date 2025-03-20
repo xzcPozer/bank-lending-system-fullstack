@@ -1,0 +1,81 @@
+<div
+  *ngIf="errorMsg.length"
+  class="alert alert-danger"
+  role="alert"
+>
+  <p *ngFor="let msg of errorMsg">{{msg}}</p>
+</div>
+
+<div *ngIf="successMessage" class="alert alert-success">
+  {{ successMessage }}
+</div>
+<div class="page-container">
+  <!-- PDF Documents Section -->
+  <div class="documents-section">
+    <div class="pdf-container">
+      <iframe [src]="uploadPdfUrl" class="pdf-frame" title="Original Document"></iframe>
+    </div>
+    <div class="pdf-container">
+      <iframe [src]="solvencyPdfUrl" class="pdf-frame" title="Second Document"></iframe>
+    </div>
+  </div>
+
+  <!-- Forms Section -->
+  <div class="forms-section">
+    <!-- Tax Agent Information -->
+    <div class="container" *ngIf="isPossibleToContinue">
+      <h3>Изменить информацию о налоговом агенте</h3>
+
+      <div class="form-group">
+        <label>Название организации</label>
+        <input type="text" class="form-control" [(ngModel)]="reqTaxAgent.name">
+      </div>
+
+      <div class="form-group">
+        <label>ИНН</label>
+        <input type="text" class="form-control" [(ngModel)]="reqTaxAgent.inn">
+      </div>
+
+      <div class="form-group" *ngIf="isHiredWorkerTaxAgent(reqTaxAgent)">
+        <label>КПП</label>
+        <input type="text" class="form-control" [(ngModel)]="reqTaxAgent.kpp">
+      </div>
+
+      <div class="form-group" *ngIf="!isHiredWorkerTaxAgent(reqTaxAgent)">
+        <label>ОГРНИП</label>
+        <input type="text" class="form-control" [(ngModel)]="reqTaxAgent.ogrnip">
+      </div>
+
+      <button class="edit-button" (click)="updateAgentInfo()">Изменить</button>
+    </div>
+
+    <!-- Financial Information -->
+    <div class="container" *ngIf="isPossibleToContinue">
+      <h3>Изменить информацию о финансовой ситуации</h3>
+      <div class="form-group">
+        <label>Общая сумма дохода</label>
+        <input type="number" class="form-control" [(ngModel)]="reqFinancialSituation.totalIncome">
+      </div>
+
+      <div class="form-group" *ngIf="isHiredWorkerFinancialSituation(reqFinancialSituation)">
+        <label>Сумма налога исчисления</label>
+        <input type="number" class="form-control" [(ngModel)]="reqFinancialSituation.taxCalculationAmount">
+      </div>
+
+      <div class="form-group">
+        <label>Средний ежемесячный доход</label>
+        <input type="number" class="form-control" [(ngModel)]="reqFinancialSituation.monthlyPayment">
+      </div>
+
+      <button class="edit-button" (click)="updateFinancialInfo()">Изменить</button>
+    </div>
+  </div>
+</div>
+<!-- Action Buttons -->
+<div class="action-buttons">
+  <button class="action-button confirm" (click)="completeConfirmation()" *ngIf="!isPossibleToContinue">Завершить проверку</button>
+  <button class="action-button reject" (click)="reject()" *ngIf="isPossibleToContinue">Отказать</button>
+  <button class="action-button reject" (click)="sendForRevision()" *ngIf="!isPossibleToContinue">Отправить на доработку</button>
+  <button class="action-button confirm" (click)="confirm()" *ngIf="isPossibleToContinue">Подтвердить</button>
+  <button class="edit-button" (click)="nextConfirmation()" *ngIf="isPossibleToContinue">Далее</button>
+</div>

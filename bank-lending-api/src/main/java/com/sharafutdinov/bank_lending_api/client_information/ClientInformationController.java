@@ -26,4 +26,22 @@ public class ClientInformationController {
     ) {
         return ResponseEntity.ok(service.getAllClientInfo(page, size));
     }
+
+    @GetMapping("/all-client/by/sort")
+    @PreAuthorize("hasRole('ROLE_CREDIT_OFFICER')")
+    public ResponseEntity<PageResponse<ClientInformationResponse>> getAllClientInfoBySort(
+            @RequestParam(name = "page", defaultValue = "0", required = false) int page,
+            @RequestParam(name = "size", defaultValue = "10", required = false) int size,
+            @RequestParam boolean isAsc
+    ) {
+        return ResponseEntity.ok(service.getAllClientInfoBySort(page, size, isAsc));
+    }
+
+    @GetMapping("/client/by/serial-number")
+    @PreAuthorize("hasRole('ROLE_CREDIT_OFFICER')")
+    public ResponseEntity<ClientInformationResponse> getClientInfoBySerialNumber(
+            @RequestParam String serialNum
+    ) {
+        return ResponseEntity.ok(service.getClientInfoBySerialNumber(serialNum));
+    }
 }

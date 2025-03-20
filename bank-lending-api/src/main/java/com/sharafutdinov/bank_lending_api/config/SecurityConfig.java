@@ -62,6 +62,7 @@ public class SecurityConfig {
                 .authorizeHttpRequests(req ->
                         req.requestMatchers(
                                         "/user/check",
+                                        "/credit-request/add/**",
                                         "/auth/login",
                                         "/v2/api-docs",
                                         "/v3/api-docs",

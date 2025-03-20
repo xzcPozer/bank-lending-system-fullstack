@@ -17,7 +17,7 @@ public interface CreditQueryService {
 
     File getSolvencyPdfInfoByUserId(Long userId);
 
-    Long sendRefuseData(Long userId, String description) throws MessagingException;
+    Long sendForRevisionData(Long userId, String description) throws MessagingException;
 
     File getPaymentPdfInfoByUserId(Long userId);
 
@@ -36,4 +36,8 @@ public interface CreditQueryService {
     File getPaymentUploadPdfInfoByUserId(Long userId);
 
     File getCreditRequestPdfInfoByUserId(Long userId);
+
+    PageResponse<CreditQueryClientResponse> getAllClientCreditQueryInfoByLastname(int page, int size, String lastname);
+
+    Long sendRefuseData(Long userId, String description) throws MessagingException;
 }

@@ -102,6 +102,13 @@ public class CreditRequestServiceImpl implements CreditRequestService {
     }
 
     @Override
+    public CreditRequestResponse getCreditRequestById(Long creditRequestId) {
+        return repository.findById(creditRequestId)
+                .map(mapper::toResponse)
+                .orElseThrow(() -> new ResourceNotFoundException("Запрос не был найден в бд"));
+    }
+
+    @Override
     public PageResponse<CreditRequestResponse> getAllCreditRequest(int page, int size) {
         Pageable pageable = PageRequest.of(page, size, Sort.by("createdDate").descending());
         Page<CreditRequest> creditRequests = repository.findAll(pageable);
@@ -138,15 +145,15 @@ public class CreditRequestServiceImpl implements CreditRequestService {
     }
 
     @Override
-    public PageResponse<CreditRequestResponse> getAllCreditByUserIdRequest(int page, int size, Authentication connectedUser) {
+    public PageResponse<CreditRequestClientResponse> getAllCreditByUserIdRequest(int page, int size, Authentication connectedUser) {
         Long authUserId = ((BankUserDetails) connectedUser.getPrincipal()).getId();
         User authUser = userRepository.findById(authUserId)
                 .orElseThrow(() -> new EntityNotFoundException("Такого пользователя не было найдено в бд"));
 
         Pageable pageable = PageRequest.of(page, size, Sort.by("createdDate").descending());
         Page<CreditRequest> creditRequests = repository.findAllByUserId(pageable, authUser.getId());
-        List<CreditRequestResponse> creditRequestList = creditRequests.stream()
-                .map(mapper::toResponse)
+        List<CreditRequestClientResponse> creditRequestList = creditRequests.stream()
+                .map(mapper::toClientResponse)
                 .toList();
         return new PageResponse<>(
                 creditRequestList,

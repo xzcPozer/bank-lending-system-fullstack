@@ -16,11 +16,13 @@ public interface CreditRequestService {
 
     PageResponse<CreditRequestResponse> getAllCreditRequest(int page, int size, boolean isProcessed);
 
-    PageResponse<CreditRequestResponse> getAllCreditByUserIdRequest(int page, int size, Authentication connectedUser);
+    PageResponse<CreditRequestClientResponse> getAllCreditByUserIdRequest(int page, int size, Authentication connectedUser);
 
     Long changeCreditRequest(MultipartFile solvency, MultipartFile employment, Authentication connectedUser, Long creditRequestId) throws ExportException;
 
     Long changeCreditRequest(MultipartFile solvency, Authentication connectedUser, Long creditRequestId) throws ExportException;
 
     PageResponse<CreditRequestResponseForDirector> getAllCreditRequestWithLendingOfficer(int page, int size);
+
+    CreditRequestResponse getCreditRequestById(Long creditRequestId);
 }

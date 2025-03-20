@@ -1,0 +1,42 @@
+<app-menu></app-menu>
+<div
+  *ngIf="msg"
+  class="alert "
+  [class.alert-danger]="level==='error'"
+  [class.alert-success]="level==='success'"
+  role="alert"
+>
+  <p>{{msg}}</p>
+</div>
+<div class="profile-container">
+  <div class="table-container">
+    <table class="data-table">
+      <thead>
+      <tr>
+        <th>Дата</th>
+        <th>Фамилия</th>
+        <th>Имя</th>
+        <th>Отчество</th>
+        <th>Статус</th>
+        <th>Пояснение</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let row of response.content">
+        <td>{{ row.date | date:'dd-MM-yyyy HH:mm'}}</td>
+        <td>{{ row.lastName }}</td>
+        <td>{{ row.firstName }}</td>
+        <td>{{ row.surName }}</td>
+        <td>{{ row.status }}</td>
+        <td>{{ row.descriptionStatus }}</td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+<app-pagination
+  [currentPage]="page"
+  [totalPages]="pages"
+  (_page)="displayPerformedWorks($event)"
+>
+</app-pagination>

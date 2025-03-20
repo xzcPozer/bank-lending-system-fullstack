@@ -1,0 +1,31 @@
+<header class="header">
+  <nav class="nav">
+    <div class="nav-links">
+      <a class="nav-link"
+         routerLink="/credit-officer/all-credit-requests">
+        Запросы на кредит
+      </a>
+      <a class="nav-link"
+         routerLink="/credit-officer/processed-credit-requests">
+        Обработанные запросы
+      </a>
+      <a class="nav-link"
+         routerLink="/credit-officer/client-info">
+        Информация о клиентах
+      </a>
+      <a class="nav-link"
+         routerLink="/credit-officer/client-financial-situation">
+        Финансовая информация
+      </a>
+      <a class="nav-link"
+         routerLink="/credit-officer/clients">
+        Клиенты
+      </a>
+      <a
+        (click)="logout()"
+        class="nav-link">
+        Выход
+      </a>
+    </div>
+  </nav>
+</header>

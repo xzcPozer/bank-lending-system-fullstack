@@ -1,0 +1,40 @@
+<div class="page-container">
+  <div class="history-section">
+    <button class="action-button logout" (click)="logout()">Выйти</button>
+
+    <div class="table-container">
+      <table class="data-table">
+        <thead>
+        <tr>
+          <th>Дата изменений</th>
+          <th>Статус</th>
+          <th>Фамилия клиента</th>
+          <th>Имя клиента</th>
+          <th>Отчество клиента</th>
+          <th>Фамилия референта</th>
+          <th>Имя референта</th>
+          <th>Отчество референта</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let request of response.content">
+          <td>{{ request.date | date:'dd.MM.yyyy HH:mm' }}</td>
+          <td>{{ request.status }}</td>
+          <td>{{ request.clientLastName }}</td>
+          <td>{{ request.clientFirstName }}</td>
+          <td>{{ request.clientSurName }}</td>
+          <td>{{ request.lendingOfficerLastName }}</td>
+          <td>{{ request.lendingOfficerFirstName }}</td>
+          <td>{{ request.lendingOfficerSurName }}</td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+<app-pagination
+  [currentPage]="page"
+  [totalPages]="pages"
+  (_page)="displayPerformedWorks($event)"
+>
+</app-pagination>

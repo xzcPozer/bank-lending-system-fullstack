@@ -153,6 +153,15 @@ public class CreditQueryController {
         return ResponseEntity.ok(service.getAllClientCreditQueryInfo(page, size));
     }
 
+    @GetMapping("/all-client/by/lastname")
+    public ResponseEntity<PageResponse<CreditQueryClientResponse>> getAllClientPaymentInformationByLastname(
+            @RequestParam(name = "page", defaultValue = "0", required = false) int page,
+            @RequestParam(name = "size", defaultValue = "10", required = false) int size,
+            @RequestParam String lastname
+    ) {
+        return ResponseEntity.ok(service.getAllClientCreditQueryInfoByLastname(page, size, lastname));
+    }
+
     @PutMapping("/change/solvency/hired-worker/tax-agent-info/{userId}")
     public ResponseEntity<Long> changeSolvencyHiredWorkerTaxAgent(
             @PathVariable Long userId,
@@ -187,6 +196,14 @@ public class CreditQueryController {
             Authentication authentication
     ) {
         return ResponseEntity.ok(service.changeSolvencyIpFinancialSituationByUserId(userId, request, authentication));
+    }
+
+    @PostMapping("/send/for-revision/{userId}")
+    public ResponseEntity<Long> sendForRevisionRequest(
+            @PathVariable Long userId,
+            @RequestPart String description
+    ) throws MessagingException {
+        return ResponseEntity.ok(service.sendForRevisionData(userId, description));
     }
 
     @PostMapping("/send/refuse/{userId}")

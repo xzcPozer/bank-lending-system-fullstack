@@ -12,7 +12,6 @@ import java.util.Map;
 
 @Data
 public class CreditRequestDto {
-    @NotEmpty(message = "ошибка передачи данных о пользователе")
     @NotNull(message = "ошибка передачи данных о пользователе")
     private Long userId;
 
@@ -20,7 +19,6 @@ public class CreditRequestDto {
     @NotNull(message = "выберите цель кредита")
     private String loanPurpose;
 
-    @NotEmpty(message = "выберите сумму кредита")
     @NotNull(message = "выберите сумму кредита")
     @Min(value = 10000, message = "сумма должна быть больше 10 000")
     @Max(value = 10_000_000, message = "сумма должна быть не больше 10 000 000")

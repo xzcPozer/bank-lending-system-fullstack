@@ -1,0 +1,66 @@
+<app-menu></app-menu>
+<div
+  *ngIf="msg"
+  class="alert "
+  [class.alert-danger]="level==='error'"
+  [class.alert-success]="level==='success'"
+  role="alert"
+>
+  <p>{{msg}}</p>
+</div>
+<div class="profile-container">
+  <div class="profile-actions">
+    <div class="search-group">
+      <input
+        type="search"
+        [(ngModel)]="searchedSerialNumber"
+        placeholder="0000-000000"
+      >
+      <button class="action-button" (click)="resetSearch()">Сбросить</button>
+      <button class="edit-button" (click)="search()">Найти</button>
+    </div>
+  </div>
+  <div class="table-container">
+    <table class="data-table">
+      <thead>
+      <tr>
+        <th>
+          <button
+            (click)="handleSort()"
+            class="sort-button"
+          >
+            Фамилия {{getSortIcon()}}
+          </button>
+        </th>
+        <th>Имя</th>
+        <th>Отчество</th>
+        <th>Серия и номер паспорта</th>
+        <th>Дата рождения</th>
+        <th>Адрес регистрации</th>
+        <th>Фактический адрес</th>
+        <th>Телефон</th>
+        <th>Почта</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let row of response.content">
+        <td>{{ row.lastname}}</td>
+        <td>{{ row.firstName }}</td>
+        <td>{{ row.surName }}</td>
+        <td>{{ row.passportSerialNumber }}</td>
+        <td>{{ row.dateOfBirth }}</td>
+        <td>{{ row.addressRegister }}</td>
+        <td>{{ row.addressFact }}</td>
+        <td>{{ row.phoneNumber }}</td>
+        <td>{{ row.email }}</td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+<app-pagination
+  [currentPage]="page"
+  [totalPages]="pages"
+  (_page)="displayPerformedWorks($event)"
+>
+</app-pagination>

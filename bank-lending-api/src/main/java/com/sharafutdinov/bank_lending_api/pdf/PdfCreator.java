@@ -641,7 +641,7 @@ public class PdfCreator {
 
             PdfPCell balanceLabel = createLabelCell("баланс:");
             balance.addCell(balanceLabel);
-            PdfPCell balanceData = createDataCell(clientInformation.getBalance().toString());
+            PdfPCell balanceData = createDataCell(clientInformation.getBalance() == null ? "0" : clientInformation.getBalance().toString());
             balance.addCell(balanceData);
 
             yPosition -= 55;
@@ -695,7 +695,7 @@ public class PdfCreator {
 
             var previousLoans = clientInformation.getPreviousLoans();
             // предыдущие кредиты
-            if (!previousLoans.isEmpty()) {
+            if (previousLoans != null) {
 
                 Paragraph p3 = new Paragraph("4. предыдущие кредиты", headerFont);
                 p3.setSpacingBefore(spacing);
@@ -723,7 +723,7 @@ public class PdfCreator {
         return outputFile.getAbsolutePath();
     }
 
-    public String createFinancialSituationForIpPdf(CreditQueryInfo creditQuery, CreditRequest creditRequest, User authUser, boolean isVerify){
+    public String createFinancialSituationForIpPdf(CreditQueryInfo creditQuery, CreditRequest creditRequest, User authUser, boolean isVerify) {
 
         Document document = new Document(PageSize.A4, 36, 36, 130, 36);
         File outputFile = new File(exporter.getReportFilepath(creditRequest.getUser().getId()) + "/financial_report.pdf");
@@ -935,7 +935,7 @@ public class PdfCreator {
         return outputFile.getAbsolutePath();
     }
 
-    public String createCreditRequestIpPdf(CreditQueryInfo creditQuery, CreditRequest creditRequest, User authUser, boolean isVerify){
+    public String createCreditRequestIpPdf(CreditQueryInfo creditQuery, CreditRequest creditRequest, User authUser, boolean isVerify) {
 
         ClientInformation clientInformation = Optional.ofNullable(clientInformationRepository.findByUserId(creditRequest.getUser().getId()))
                 .orElseThrow(() -> new ResourceNotFoundException("информации об этом пользователи не было найдено"));
@@ -1113,7 +1113,7 @@ public class PdfCreator {
 
             PdfPCell balanceLabel = createLabelCell("баланс:");
             balance.addCell(balanceLabel);
-            PdfPCell balanceData = createDataCell(clientInformation.getBalance()==null
+            PdfPCell balanceData = createDataCell(clientInformation.getBalance() == null
                     ? "0" : clientInformation.getBalance().toString());
             balance.addCell(balanceData);
 
@@ -1189,8 +1189,7 @@ public class PdfCreator {
 
             document.close();
             writer.close();
-        }
-        catch (IOException e){
+        } catch (IOException e) {
             throw new PdfException(e);
         }
 

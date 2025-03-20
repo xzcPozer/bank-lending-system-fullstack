@@ -23,14 +23,16 @@ public class AuthenticationService {
     private final JwtUtils jwtUtils;
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
-    public String login(LoginRequest request) {
+    public AuthResponse login(LoginRequest request) {
         Authentication authentication = authenticationManager
                 .authenticate(new UsernamePasswordAuthenticationToken(
                         request.getEmail(), request.getPassword()));
 
         SecurityContextHolder.getContext().setAuthentication(authentication);
 
-        return jwtUtils.generateTokenForUser(authentication);
+        return AuthResponse.builder()
+                .token(jwtUtils.generateTokenForUser(authentication))
+                .build();
     }
 
     public void changePassword(LoginChangeRequest request) throws AuthenticationException {
@@ -40,7 +42,7 @@ public class AuthenticationService {
 
         Long userId = ((BankUserDetails) authentication.getPrincipal()).getId();
 
-        if (request.getNewPassword().equals(request.getConfirmNewPassword()))
+        if (!request.getNewPassword().equals(request.getConfirmNewPassword()))
             throw new AuthenticationException("Пароли не совпадают");
 
         userRepository.findById(userId)

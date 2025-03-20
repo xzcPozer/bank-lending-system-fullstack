@@ -78,7 +78,7 @@ public class PdfExtractor {
             solvencyHiredWorkersClientSum.put("сумма налога исчисленная", listForRegex.get(2));
             solvencyHiredWorkersClientSum.put("средний ежемесячный доход", calculateAvgMonthlyIncome(listForRegex.get(1), listForRegex.get(2)));
 
-        } catch (IOException e) {
+        } catch (Exception e) {
             throw new ExportException("Ошибка при чтении PDF-файла!");
         }
     }
@@ -118,7 +118,7 @@ public class PdfExtractor {
             employmentHiredWorkersTaxAgent.put("инн", listForRegex.get(0));
             employmentHiredWorkersTaxAgent.put("кпп", listForRegex.get(1));
 
-        } catch (IOException e) {
+        } catch (Exception e) {
             throw new ExportException("Ошибка при чтении PDF-файла!");
         }
     }
@@ -162,7 +162,7 @@ public class PdfExtractor {
             String totalIncome = num1 + "." + num2;
             solvencyIndividualEntrepreneurClientSum.put("общая сумма дохода", totalIncome);
             solvencyIndividualEntrepreneurClientSum.put("средний ежемесячный доход", calculateAvgMonthlyIncome(totalIncome, 3));
-        } catch (IOException e) {
+        } catch (Exception e) {
             throw new ExportException("Ошибка при чтении PDF-файла!");
         }
     }

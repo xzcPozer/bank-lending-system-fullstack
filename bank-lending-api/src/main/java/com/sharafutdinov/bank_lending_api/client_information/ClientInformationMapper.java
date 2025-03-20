@@ -8,10 +8,10 @@ import java.util.Map;
 
 @Service
 public class ClientInformationMapper {
-    
-    public ClientInformationResponse toResponse(ClientInformation info){
-        String previousLoans = getPreviousLoansToString(info.getPreviousLoans());
-        
+
+    public ClientInformationResponse toResponse(ClientInformation info) {
+        String previousLoans = info.getPreviousLoans() == null ? "" : getPreviousLoansToString(info.getPreviousLoans());
+
         return ClientInformationResponse.builder()
                 .firstName(info.getUser().getFirstName())
                 .lastName(info.getUser().getLastName())
@@ -25,7 +25,7 @@ public class ClientInformationMapper {
     private String getPreviousLoansToString(List<Map<String, Object>> previousLoans) {
         StringBuilder builder = new StringBuilder();
 
-        for(var map : previousLoans){
+        for (var map : previousLoans) {
             for (Map.Entry<String, Object> entry : map.entrySet()) {
                 builder.append(entry.getKey()).append(" : ").append(entry.getValue());
                 builder.append("\n");

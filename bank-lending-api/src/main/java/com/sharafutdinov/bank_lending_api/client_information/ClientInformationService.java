@@ -10,6 +10,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -129,4 +130,31 @@ public class ClientInformationService {
     }
 
 
+    public PageResponse<ClientInformationResponse> getAllClientInfoBySort(int page, int size, boolean isAsc) {
+        Pageable pageable;
+        if(isAsc)
+            pageable = PageRequest.of(page, size, Sort.by("lastName").ascending());
+        else
+            pageable = PageRequest.of(page, size, Sort.by("lastName").descending());
+
+        Page<ClientInformation> clientInfo = repository.findAll(pageable);
+        List<ClientInformationResponse> clientInfoList = clientInfo.stream()
+                .map(mapper::toResponse)
+                .toList();
+        return new PageResponse<>(
+                clientInfoList,
+                clientInfo.getNumber(),
+                clientInfo.getSize(),
+                clientInfo.getTotalElements(),
+                clientInfo.getTotalPages(),
+                clientInfo.isFirst(),
+                clientInfo.isLast()
+        );
+    }
+
+    public ClientInformationResponse getClientInfoBySerialNumber(String serialNum) {
+        return Optional.ofNullable(repository.findByUserPassportSerialNumber(serialNum))
+                .map(mapper::toResponse)
+                .orElseThrow(()->new ResourceNotFoundException("Клиент с такими паспортными данными не был найден"));
+    }
 }

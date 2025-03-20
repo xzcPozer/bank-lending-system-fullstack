@@ -6,4 +6,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 public interface ClientInformationRepository extends JpaRepository<ClientInformation, Long> {
 
     ClientInformation findByUserId(Long userId);
+
+    ClientInformation findByUserPassportSerialNumber(String serialNum);
 }
