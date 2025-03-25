@@ -49,6 +49,38 @@ services:
       - 1025:1025
       - 8025:8025
 
+  backend:
+    image: bank-lending-system-backend:latest
+    container_name: bank-lending-api
+    environment:
+      SPRING_PROFILES_ACTIVE: prod
+      SPRING_DATASOURCE_BANK_URL: jdbc:postgresql://postgres-bank:5432/bank_db
+      SPRING_DATASOURCE_BANK_USERNAME: timur
+      SPRING_DATASOURCE_BANK_PASSWORD: timur
+      SPRING_DATASOURCE_ROSPASSPORT_URL: jdbc:postgresql://postgres-rospassport:5432/rospassport_db
+      SPRING_DATASOURCE_ROSPASSPORT_USERNAME: timur
+      SPRING_DATASOURCE_ROSPASSPORT_PASSWORD: timur
+      SPRING_MAIL_HOST: mailhog
+      SPRING_MAIL_PORT: 1025
+    ports:
+      - 8088:8088
+    depends_on:
+      - postgres-bank
+      - postgres-rospassport
+      - mailhog
+    networks:
+      - bank-lending-net
+    restart: unless-stopped
+
+  frontend:
+    image: bank-lending-system-frontend:latest
+    container_name: bank-lending-ui
+    ports:
+      - 8080:80
+    networks:
+      - bank-lending-net
+    depends_on:
+      - backend
 
 networks:
   bank-lending-net:

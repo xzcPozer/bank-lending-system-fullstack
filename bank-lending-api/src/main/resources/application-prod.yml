@@ -1,0 +1,32 @@
+spring:
+  datasource:
+    bank:
+      url: ${SPRING_DATASOURCE_BANK_URL}
+      username: ${SPRING_DATASOURCE_BANK_USERNAME}
+      password: ${SPRING_DATASOURCE_BANK_PASSWORD}
+      driver-class-name: org.postgresql.Driver
+    rospassport:
+      url: ${SPRING_DATASOURCE_ROSPASSPORT_URL}
+      username: ${SPRING_DATASOURCE_ROSPASSPORT_USERNAME}
+      password: ${SPRING_DATASOURCE_ROSPASSPORT_USERNAME}
+      driver-class-name: org.postgresql.Driver
+
+  jpa:
+    hibernate:
+      ddl-auto: validate
+      database-platform: org.hibernate.dialect.PostgreSQLDialect
+
+  mail:
+    port: ${SPRING_MAIL_PORT}
+    host: ${SPRING_MAIL_HOST}
+    username:
+    password:
+    protocol: smtp
+
+auth:
+  token:
+    jwt-secret: PE+01rgtPbv1Xr4JxgTwcB2oB+m+4NZVD+SO+WBiudE=
+    expiration: 36000000 # 10 часов
+
+server:
+  port: 8088
